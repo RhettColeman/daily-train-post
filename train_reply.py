@@ -30,27 +30,27 @@ def bot_reply():
 		if not tweet:
 			return
 
-	# ---random generation---#
-	word_type = random.choice(search_words)
-	random_number = random.randint(1, 100)
+		# ---random generation---#
+		word_type = random.choice(search_words)
+		random_number = random.randint(1, 100)
 
-	# ---Choose parameters---#
-	response().download(f'{word_type} {random_number}', 1)
-	urltxt = response().urls(f'{word_type} {random_number}', 1)
-	print(f'The search was {word_type} {random_number}')
+		# ---Choose parameters---#
+		response().download(f'{word_type} {random_number}', 1)
+		urltxt = response().urls(f'{word_type} {random_number}', 1)
+		print(f'The search was {word_type} {random_number}')
 
-	# ---File location---#
-	train_img = 'simple_images/trainpic.jpg'
-	status = ("@" + str(tweet.user.screen_name) + ' Choo! Choo! Here is a train just for you!')
-	in_reply_to_status_id = tweet.id
+		# ---File location---#
+		train_img = 'simple_images/trainpic.jpg'
+		status = ("@" + str(tweet.user.screen_name) + ' Choo! Choo! Here is a train just for you!')
+		in_reply_to_status_id = tweet.id
 
-	# ---Replying---#
-	print(str(tweet.id) + '-' + tweet.full_text, flush=True)
-	print('Fav-ing and Responding....', flush=True)
-	api.update_with_media(train_img, status, in_reply_to_status_id=in_reply_to_status_id)
-	api.create_favorite(tweet.id)
-	api.retweet(tweet.id)
-	store_last_seen(FILE_NAME, tweet.id)
+		# ---Replying---#
+		print(str(tweet.id) + '-' + tweet.full_text, flush=True)
+		print('Fav-ing and Responding....', flush=True)
+		api.update_with_media(train_img, status, in_reply_to_status_id=in_reply_to_status_id)
+		api.create_favorite(tweet.id)
+		api.retweet(tweet.id)
+		store_last_seen(FILE_NAME, tweet.id)
 
 while True:
     bot_reply()

@@ -10,9 +10,6 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 
 
 #---train_reply---#
-file = open("last_seen.txt","r+")
-f.seek(0)
-file.truncate()
 bot_reply()
 
 while True:

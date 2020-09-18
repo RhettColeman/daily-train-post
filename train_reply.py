@@ -30,7 +30,7 @@ def bot_reply():
         for mention in reversed(mentions):
             if not mention:
                 return
-            print(str(mention.id) + '-' + tweet.full_text, flush=True)
+            print(str(mention.id) + '-' + mention.full_text, flush=True)
             print('Found @Daily Train Post', flush=True)
             print('fav-ing and retweeting tweet...', flush=True)
             api.create_favorite(mention.id)

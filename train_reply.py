@@ -52,8 +52,11 @@ def bot_reply():
 	        api.create_favorite(tweet.id)
 	        api.retweet(tweet.id)
 	        store_last_seen(FILE_NAME, tweet.id)
-	except TweepyError:
-		return        
+	except tweepy.TweepyError as e:
+		print(e.reason)
+		print('Tweet already favorited by DTP waiting for something new')
+		time.sleep(30)
+		continue        
 
 while True:
     bot_reply()

@@ -37,14 +37,9 @@ def bot_instructions():
         api.retweet(mention.id)
 
 def bot_reply():
-	try:
-		while True:	
-			bot_instructions()
-			time.sleep(30)            
-	except KeyboardInterrupt:
-        print('Manual break by user')
-    except:
-        print('Its not posting')            
+        while True:
+            bot_instructions()
+            time.sleep(30)
 
 
 	# tweets = api.mentions_timeline(read_last_seen(FILE_NAME), tweet_mode='extended')
@@ -73,7 +68,3 @@ def bot_reply():
 	# 	#api.retweet(tweet.id)
 	# 	store_last_seen(FILE_NAME, tweet.id)
 	# 	print(f'The search was {word_type} {random_number}')
-
-# while True:
-#     bot_reply()
-#     time.sleep(30)

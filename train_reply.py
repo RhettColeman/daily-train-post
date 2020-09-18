@@ -9,33 +9,42 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, wait_on_rate_limit=True)
 
+FILE_NAME = 'last_seen.txt'
+
+def retrieve_last_seen_id(FILE_NAME):
+    f_read = open(FILE_NAME, 'r')
+    last_seen_id = int(f_read.read().strip())
+    f_read.close()
+    return last_seen_id
+
+def store_last_seen_id(FILE_NAME, last_seen_id):
+    f_write = open(FILE_NAME, 'w')
+    f_write.write(str(last_seen_id))
+    f_write.close()
+    return
+
+def bot_instructions():
+    print('Waiting for mentions...')
+    last_seen_id = retrieve_last_seen_id(FILE_NAME)
+    mentions = api.mentions_timeline(last_seen_id, tweet_mode='extended')
+    for mention in reversed(mentions):
+        if not mention:
+            return
+        print(str(mention.id) + '-' + mention.full_text, flush=True)
+        print('Found @Daily Train Post', flush=True)
+        print('fav-ing and retweeting tweet...', flush=True)
+        api.create_favorite(mention.id)
+        api.retweet(mention.id)
+
 def bot_reply():
-	def retrieve_last_seen_id(FILE_NAME):
-	    f_read = open(FILE_NAME, 'r')
-	    last_seen_id = int(f_read.read().strip())
-	    f_read.close()
-	    return last_seen_id
-
-	def store_last_seen_id(FILE_NAME, last_seen_id):
-	    f_write = open(FILE_NAME, 'w')
-	    f_write.write(str(last_seen_id))
-	    f_write.close()
-	    return
-
-	FILE_NAME = 'last_seen.txt'
-
-	def bot_reply():
-	        print('Waiting for mentions...')
-	        last_seen_id = retrieve_last_seen_id(FILE_NAME)
-	        mentions = api.mentions_timeline(last_seen_id, tweet_mode='extended')
-	        for mention in reversed(mentions):
-	            if not mention:
-	                return
-	            print(str(mention.id) + '-' + mention.full_text, flush=True)
-	            print('Found @Daily Train Post', flush=True)
-	            print('fav-ing and retweeting tweet...', flush=True)
-	            api.create_favorite(mention.id)
-	            api.retweet(mention.id)
+	try:
+		while True:	
+		bot_instructions()
+		time.sleep(30)            
+	except KeyboardInterrupt:
+        print('Manual break by user')
+    except:
+        print('Its not posting')            
 
 
 	# tweets = api.mentions_timeline(read_last_seen(FILE_NAME), tweet_mode='extended')
@@ -65,6 +74,6 @@ def bot_reply():
 	# 	store_last_seen(FILE_NAME, tweet.id)
 	# 	print(f'The search was {word_type} {random_number}')
 
-while True:
-    bot_reply()
-    time.sleep(30)
+# while True:
+#     bot_reply()
+#     time.sleep(30)

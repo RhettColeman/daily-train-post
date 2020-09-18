@@ -39,8 +39,8 @@ def bot_instructions():
 def bot_reply():
 	try:
 		while True:	
-		bot_instructions()
-		time.sleep(30)            
+			bot_instructions()
+			time.sleep(30)            
 	except KeyboardInterrupt:
         print('Manual break by user')
     except:

@@ -27,9 +27,8 @@ def bot_reply():
 	print('Wating for mentions...')
 	tweets = api.mentions_timeline(read_last_seen(FILE_NAME), tweet_mode='extended')
 	for tweet in reversed(tweets):
-		if not tweet:
-			return
-
+		print(str(tweet.id) + '-' + tweet.full_text)
+		
 		# ---random generation---#
 		word_type = random.choice(search_words)
 		random_number = random.randint(1, 100)
@@ -37,20 +36,21 @@ def bot_reply():
 		# ---Choose parameters---#
 		response().download(f'{word_type} {random_number}', 1)
 		urltxt = response().urls(f'{word_type} {random_number}', 1)
-		print(f'The search was {word_type} {random_number}')
+
+		# ---Fixing URL---#
+		bad_chars = ['[', ']']
+		urltxt = ''.join(i for i in urltxt if not i in bad_chars)
+		# print(str(urltxt))
 
 		# ---File location---#
 		train_img = 'simple_images/trainpic.jpg'
 		status = ("@" + str(tweet.user.screen_name) + ' Choo! Choo! Here is a train just for you!')
 		in_reply_to_status_id = tweet.id
-
-		# ---Replying---#
-		print(str(tweet.id) + '-' + tweet.full_text, flush=True)
-		print('Fav-ing and Responding....', flush=True)
 		api.update_with_media(train_img, status, in_reply_to_status_id=in_reply_to_status_id)
 		api.create_favorite(tweet.id)
-		api.retweet(tweet.id)
+		#api.retweet(tweet.id)
 		store_last_seen(FILE_NAME, tweet.id)
+		print(f'The search was {word_type} {random_number}')
 
 while True:
     bot_reply()

@@ -17,7 +17,7 @@ class image_seacher_code:
         things = len(keyword_to_search) * limit
 
         bar = progressbar.ProgressBar(maxval=things, \
-                                      #widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()]).start()
+                                      widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()]).start()
 
         while i < len(keyword_to_search):
             url = 'https://www.google.com/search?q=' + quote(
@@ -79,7 +79,7 @@ class image_seacher_code:
         things = len(keyword_to_search) * limit
 
         bar = progressbar.ProgressBar(maxval=things, \
-                                      #widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
+                                      widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 
         bar.start()
 

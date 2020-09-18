@@ -10,5 +10,6 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 
 
 #---train_reply---#
-bot_reply()
-
+while True:
+    bot_reply()
+    time.sleep(30)

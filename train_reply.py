@@ -37,9 +37,8 @@ def bot_instructions():
         api.retweet(mention.id)
 
 def bot_reply():
-        while True:
-            bot_instructions()
-            time.sleep(30)
+    bot_instructions()
+
 
 
 	# tweets = api.mentions_timeline(read_last_seen(FILE_NAME), tweet_mode='extended')

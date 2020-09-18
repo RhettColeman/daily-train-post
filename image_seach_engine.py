@@ -2,7 +2,7 @@ import os
 import urllib
 import requests
 import magic
-import progressbar
+#import progressbar
 from urllib.parse import quote
 
 class image_seacher_code:
@@ -16,8 +16,8 @@ class image_seacher_code:
 
         things = len(keyword_to_search) * limit
 
-        bar = progressbar.ProgressBar(maxval=things, \
-                                      widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()]).start()
+        #bar = progressbar.ProgressBar(maxval=things, \
+                                      #widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()]).start()
 
         while i < len(keyword_to_search):
             url = 'https://www.google.com/search?q=' + quote(
@@ -78,8 +78,8 @@ class image_seacher_code:
 
         things = len(keyword_to_search) * limit
 
-        bar = progressbar.ProgressBar(maxval=things, \
-                                      widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
+        #bar = progressbar.ProgressBar(maxval=things, \
+                                      #widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 
         bar.start()
 

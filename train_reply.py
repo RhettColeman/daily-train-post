@@ -1,6 +1,9 @@
 import tweepy
 import time
+import random
 from credentials import *
+from train_search_words import search_words
+from image_seach_engine import image_seacher_code as response
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -26,39 +29,29 @@ def bot_reply():
     for tweet in reversed(tweets):
         if not tweet:
             return
+
+        # ---random generation---#
+        word_type = random.choice(search_words)
+        random_number = random.randint(1, 100)
+
+        # ---Choose parameters---#
+        response().download(f'{word_type} {random_number}', 1)
+        urltxt = response().urls(f'{word_type} {random_number}', 1)
+        print(f'The search was {word_type} {random_number}')
+
+        # ---File location---#
+        train_img = 'simple_images/trainpic.jpg'
+        status = ("@" + str(tweet.user.screen_name) + ' Choo! Choo! Here is a train just for you!')
+
+        # ---Replying---#
         print(str(tweet.id) + '-' + tweet.full_text, flush=True)
         in_reply_to_status_id = tweet.id
         store_last_seen(FILE_NAME, tweet.id)
         print('Fav-ing and Responding....',flush = True)
+        api.update_with_media(train_img, status, in_reply_to_status_id=in_reply_to_status_id)
         api.create_favorite(tweet.id)
         api.retweet(tweet.id)
 
 while True:
     bot_reply()
     time.sleep(30)
-
-        # #########################
-        # # ---random generation---#
-        # train_words = search_words
-        # #train_words = ['trains', 'locomotive', 'railway', 'railwayphotography', 'steam locomotive', 'CSX', '#trains','#locomotive', '#railway', '#railwayphotography', '#steam locomotive']
-        # word_type = random.choice(train_words)
-        # random_number = random.randint(1, 100)
-        #
-        # # ---Choose parameters---#
-        # response().download(f'{word_type} {random_number}', 1)
-        # urltxt = response().urls(f'{word_type} {random_number}', 1)
-        #
-        # # ---Fixing URL---#
-        # bad_chars = ['[', ']']
-        # urltxt = ''.join(i for i in urltxt if not i in bad_chars)
-        # # print(str(urltxt))
-        #
-        # # ---File location---#
-        # train_img = 'simple_images/trainpic.jpg'
-        # status = ("@" + str(tweet.user.screen_name) + ' Choo! Choo! Here is a train just for you!')
-        #
-        # api.update_with_media(train_img, status, in_reply_to_status_id=in_reply_to_status_id)
-        # api.create_favorite(tweet.id)
-        # #api.retweet(tweet.id)
-        #
-        # print(f'The search was {word_type} {random_number}')

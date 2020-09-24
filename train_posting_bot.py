@@ -1,8 +1,8 @@
 #---Imports--#
 import tweepy
-import time
 from credentials import *
 from train_reply import *
+from train_search_words import search_words
 import image_seach_engine as posting_bot
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -14,9 +14,7 @@ def posting_bot():
     api = tweepy.API(auth)
 
     #---random generation---#
-    train_words = search_words
-    #train_words = ['trains','locomotive','railway','railwayphotography','steam locomotive', 'CSX','#trains','#locomotive','#railway','#railwayphotography','#steam locomotive']
-    word_type = random.choice(train_words)
+    word_type = random.choice(search_words)
     random_number = random.randint(1,100)
 
     #---Choose parameters---#

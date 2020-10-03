@@ -12,4 +12,4 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 #---train_reply---#
 while True:
     posting_bot()
-    time.sleep(43200)
+    time.sleep(60 * 60 * 24)
